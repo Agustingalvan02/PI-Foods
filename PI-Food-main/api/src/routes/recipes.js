@@ -20,9 +20,9 @@ const getRecipeApiInfo= async()=>{
             Spoonacularscore: e.spoonacularScore,
             healthScore: e.healthScore,
              types: e.dishTypes?.map(element => element),  
-             diets: e.diets?.map(element => element), 
-              summary:e.summary, 
-             steps: (e.analyzedInstructions[0] && e.analyzedInstructions[0].steps?e.analyzedInstructions[0].steps.map(item=>item.step).join(" \n"):'')
+             diets: e.diets?.map(element => element) +" ", 
+              summary:e.summary.replace(/<[^>]*>?/g, ''), 
+             steps: (e.analyzedInstructions[0] && e.analyzedInstructions[0].steps?e.analyzedInstructions[0].steps.map(item=>item.step).join(" \n"):'') 
         }
         
     });
@@ -76,12 +76,12 @@ const getNameByApi= async(name)=>{
         //  vegan: r.vegan,
         //  glutenFree: r.glutenFree,
         //  dairyFree: r.dairyFree, 
-        //  image: r.image, 
+          image: r.image, 
         //  idApi: r.id, 
-        //  spoonacularScore: r.spoonacularScore,
-        //  healthScore: r.healthScore,
+        //   spoonacularScore: r.spoonacularScore,
+        //   healthScore: r.healthScore,
         //   types: r.dishTypes?.map(element => element),  
-        //   diets: r.diets?.map(element => element), 
+           diets: r.diets?.map(element => element), 
         //   summary:r.summary, 
         //   steps: (r.analyzedInstructions[0] && r.analyzedInstructions[0].steps?r.analyzedInstructions[0].steps.map(item=>item.step).join(" \n"):'')
      }
@@ -101,7 +101,6 @@ const getNameInfo= async(name)=>{
    const namebyApi= await getNameByApi(name);
    const namebyDB= await getNamebyDB(name);
    const getNameAllInfo=namebyApi.concat(namebyDB);
-   
    return getNameAllInfo;
 
 }
@@ -117,7 +116,8 @@ router.get('/',async(req,res)=>{
 
     }
     else{
-        res.status(200).send(allRecipes);
+        const allDate= await getDbApiInfo()
+        res.status(200).send(allDate);
     }
     
 })
@@ -138,7 +138,7 @@ router.get('/:id',async(req,res)=>{
              spoonacularScore: resultId.spoonacularScore,
              healthScore: resultId.healthScore,
               types: resultId.dishTypes?.map(element => element),  
-              diets: resultId.diets?.map(element => element), 
+              diets: resultId.diets?.map(element => element) , 
               summary:resultId.summary, 
               steps: (resultId.analyzedInstructions[0] && resultId.analyzedInstructions[0].steps?resultId.analyzedInstructions[0].steps.map(item=>item.step).join(" \n"):'')
 

@@ -21,7 +21,7 @@ const getDietApiInfo = async () => {
       //  healthScore: e.healthScore,
       //   types: e.dishTypes?.map(element => element),
       diets: e.diets?.map((element) => element),
-      summary: e.summary,
+      summary: e.summary.replace(/<[^>]*>?/g, ''),
       //   steps: (e.analyzedInstructions[0] && e.analyzedInstructions[0].steps?e.analyzedInstructions[0].steps.map(item=>item.step).join(" \n"):'')
     };
   });
@@ -35,13 +35,6 @@ router.get("/", async (req, res) => {
   );
   const dietApiInfo = await dietApiUrlSearch.data.results.map((e) => {
     return {
-      //    name: e.title,
-      //     vegetarian: e.vegetarian,
-      //     vegan: e.vegan,
-      //      glutenFree: e.glutenFree,
-      //     dairyFree: e.dairyFree,
-      //     image: e.image,
-      //     idApi: e.id,
       diets: e.diets?.map((element) => element),
     };
   });
@@ -50,7 +43,7 @@ router.get("/", async (req, res) => {
     for (let i = 0; i < dietApiInfo.length; i++) {
        dietsFind.push(dietApiInfo[i].diets);
     }
-    console.log(dietsFind);
+   
     return dietsFind;
 
   }
@@ -62,7 +55,7 @@ router.get("/", async (req, res) => {
     }
     return newArray
   }
-  
+ 
   join(dietasF)
  
   var DietFinalFilter = join(dietasF())
