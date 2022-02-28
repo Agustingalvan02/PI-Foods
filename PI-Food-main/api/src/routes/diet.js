@@ -6,23 +6,13 @@ const { API_KEY } = process.env;
 
 const getDietApiInfo = async () => {
   const dietApiUrlSearch = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=50`
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
   );
   const dietApiInfo = await dietApiUrlSearch.data.results.map((e) => {
     return {
-      name: e.title,
-      vegetarian: e.vegetarian,
-      vegan: e.vegan,
-      glutenFree: e.glutenFree,
-      dairyFree: e.dairyFree,
-      image: e.image,
-      idApi: e.id,
-      //  Spoonacularscore: e.spoonacularScore,
-      //  healthScore: e.healthScore,
-      //   types: e.dishTypes?.map(element => element),
       diets: e.diets?.map((element) => element),
       summary: e.summary.replace(/<[^>]*>?/g, ''),
-      //   steps: (e.analyzedInstructions[0] && e.analyzedInstructions[0].steps?e.analyzedInstructions[0].steps.map(item=>item.step).join(" \n"):'')
+      
     };
   });
   //  console.log(dietApiInfo);
@@ -63,18 +53,18 @@ router.get("/", async (req, res) => {
   let result = DietFinalFilter.filter((item, index) => {
       return DietFinalFilter.indexOf(item) === index;
   })
-  console.log(result);
+  
 
   for (var i = 0; i < result.length; i++) {
-      const temp = await Diet.create({
-          name: result[i]
+      const temp = await Diet.findOrCreate({
+         where:{name: result[i]} 
       })
   }
 
-  res.send(result)
-
-  console.log(result);
-  res.status(200).send(result);
+  
+ const dietasDb= await Diet.findAll()
+  
+  res.status(200).send(dietasDb);
 });
 
 //  getDietApiInfo();
