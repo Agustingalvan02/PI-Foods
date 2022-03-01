@@ -24,8 +24,8 @@ const getRecipeApiInfo = async () => {
       diets: e.diets?.map((element) => element) + " ",
       summary: e.summary.replace(/<[^>]*>?/g, ""),
       steps:
-        e.analyzedInstructions[0] && e.analyzedInstructions[0].steps
-          ? e.analyzedInstructions[0].steps.map((item) => item.step).join(" \n")
+        e.analyzedInstructions[0] && e.analyzedInstructions[0].analyzedInstructions
+          ? e.analyzedInstructions[0].analyzedInstructions.map((item) => item.analyzedInstructions).join(" \n")
           : "",
     };
   });
@@ -74,17 +74,20 @@ const getNameByApi = async (name) => {
     return {
       name: r.title,
       vegetarian: r.vegetarian,
-       vegan: r.vegan,
-       glutenFree: r.glutenFree,
-       dairyFree: r.dairyFree,
+      vegan: r.vegan,
+      glutenFree: r.glutenFree,
+      dairyFree: r.dairyFree,
       image: r.image,
-       id: r.id,
-        spoonacularScore: r.spoonacularScore,
-        healthScore: r.healthScore,
-        types: r.dishTypes?.map(element => element),
+      id: r.id,
+      spoonacularScore: r.spoonacularScore,
+      healthScore: r.healthScore,
+      types: r.dishTypes?.map((element) => element),
       diets: r.diets?.map((element) => element),
-        summary:r.summary,
-        steps: (r.analyzedInstructions[0] && r.analyzedInstructions[0].steps?r.analyzedInstructions[0].steps.map(item=>item.step).join(" \n"):'')
+      summary: r.summary,
+      steps:
+        r.analyzedInstructions[0] && r.analyzedInstructions[0].analyzedInstructions
+          ? r.analyzedInstructions[0].analyzedInstructions.map((item) => item.step).join(" \n")
+          : "",
     };
   });
   //   console.log(resName);
@@ -163,29 +166,33 @@ router.get("/:id", async (req, res) => {
       },
     });
   }
-
-  
 });
 
-router.post('/recipe', async (req, res) => {
-    const { name, summary,spoonacularScore, healthScore, image, analyzedInstructions,servings, cuisines, diets } =
-      req.body;
-    const newRecipe = await Recipe.create({
-      name,
-      summary,
-      spoonacularScore,
-      healthScore,
-      analyzedInstructions,
-      readyInMinutes,
-      servings,
-      cuisines,
-      image,
-    });
-
-    const dbDiets= await Diet.findAll({
-        where:{name:diets}
-    })
-    await newRecipe.addDiet(dbDiets);
-    
+router.post("/", async (req, res) => {
+  let {
+    name,
+    summary,
+    spoonacularScore,
+    healthScore,
+    steps,
+    diets,
+    image,
+  } = req.body;
+  
+  const newRecipe = await Recipe.create({
+    name,
+    summary,
+    spoonacularScore,
+    healthScore,
+    steps,
+    diets,
+    image,
   });
+ console.log(newRecipe);
+  const dbDiets = await Diet.findAll({
+    where: { name: diets },
+  });
+   await newRecipe.addDiet(dbDiets);
+   res.status(200).send(newRecipe)
+});
 module.exports = router;

@@ -1,0 +1,38 @@
+.container {
+  background-image: url(../../img/pexels-lukas-349610.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* .cosas {
+  display: inline;
+  justify-content: space-between;
+} */
+.cardHome {
+  border: 1px rgb(255, 255, 255) solid;
+  border-radius: 9px;
+  background: transparent;
+  display: flex;
+  margin-top: 50px;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  background: inherit;
+  overflow: hidden;
+  justify-content: center;
+  width: 550px;
+  height: 575px;
+  margin-left: 25%;
+}
+.LinkCard {
+  text-decoration: none;
+}
+
+.refreshButton {
+  background-color: black;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}

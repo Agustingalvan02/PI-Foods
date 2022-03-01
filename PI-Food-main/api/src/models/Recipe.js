@@ -16,24 +16,21 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
 
-    overview:{
-      type: DataTypes.TEXT,
+    summary:{
+      type: DataTypes.STRING,
       allowNull:false,
     },
     spoonacularScore:{
-      type:DataTypes.FLOAT
+      type:DataTypes.INTEGER
     },
     healthyScore:{
-      type:DataTypes.FLOAT
-    },
-    instructions:{
-      type:DataTypes.TEXT
+      type:DataTypes.INTEGER
     },
     image:{
-      type: DataTypes.TEXT
+      type: DataTypes.STRING
     },
     steps: {
-      type: DataTypes.TEXT
+      type: DataTypes.STRING
     },
   });
 };

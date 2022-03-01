@@ -23,7 +23,9 @@ export function getDiets() {
 export function searchByName(name) {
   return async function (dispatch) {
     try {
-      var response = await axios.get("http://localhost:3001/recipes?name=" + name);
+      var response = await axios.get(
+        "http://localhost:3001/recipes?name=" + name
+      );
       return dispatch({
         type: "SEARCH_RECIPES_NAME",
         payload: response.data,
@@ -53,12 +55,23 @@ export function filterByName(payload) {
   };
 }
 
-export function recipeDetail(id){
-  return async function(dispatch){
-    let response = await axios.get('http://localhost:3001/recipes/'+ id)
+export function recipeDetail(id) {
+  return async function (dispatch) {
+    let response = await axios.get("http://localhost:3001/recipes/" + id);
     return dispatch({
-      type:"RECIPE_DETAIL",
+      type: "RECIPE_DETAIL",
+      payload: response.data,
+    });
+  };
+}
+
+export function postRecipe(payload) {
+  return async function (dispatch) {
+    const response = await axios.post("http://localhost:3001/recipes/", payload);
+    console.log(response);
+    return dispatch({
+      type: "POST_RECIPE",
       payload: response.data
     })
-  }
+  };
 }

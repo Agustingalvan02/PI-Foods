@@ -2,7 +2,8 @@ const initialState = {
   recipes: [],
   allRecipes: [],
   diets: [],
-  detail: []
+  detail: [],
+  newRecipe:[]
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -23,6 +24,12 @@ export default function rootReducer(state = initialState, action) {
           ...state,
           recipes: action.payload
         }
+
+        case "POST_RECIPE":
+          return{
+            ...state,
+            newRecipe:action.payload
+          }
     case "FILTER_BY_DIETS":
       const recipes = state.allRecipes;
       console.log(recipes);

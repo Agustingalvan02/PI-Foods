@@ -7,9 +7,10 @@ import NavBar from './NavBar/nav';
 import CardContainer from './Components/CardContainer/CardContainer';
 function App() {
   return (
+   
     <div className="App">
+      <h1 className='title'>Henry Food</h1>
       <NavBar/>
-      <h1>Henry Food</h1>
       <Switch>
       <Route exact path="/" component={landingPage}/>
       <Route exact path="/home" component={Home}/>
@@ -17,6 +18,7 @@ function App() {
       <Route path="/recipes/:id" component={CardContainer}/>
       </Switch>
     </div>
+   
   );
 }
 
