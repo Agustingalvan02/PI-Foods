@@ -13,6 +13,7 @@ import Paginado from "../Paginado/paginado";
 import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import "./home.css";
+import NavBar from "../NavBar/nav";
 export default function Home() {
   const dispatch = useDispatch();
   const allRecipes = useSelector((state) => state.recipes);
@@ -63,6 +64,7 @@ export default function Home() {
   }
   return (
     <div className="container">
+      <NavBar />
       <div>
         <div className="cosas">
           <select onChange={(e) => handleFilterByName(e)}>
@@ -82,19 +84,14 @@ export default function Home() {
             onChange={(e) => handleFilterByScore(e)}
             defaultValue="default"
           >
-            <option value="default" disabled>
+            <option disabled>
               {" "}
               Puntaje{" "}
             </option>
             <option value="higher"> Higher </option>
             <option value="lower"> Lower </option>
           </select>
-          <select>
-            <option value="todas"> All </option>
-            <option value="creadas"> Created</option>
-            <option value="api"> API </option>
-          </select>
-        <SearchBar />
+          <SearchBar />
         </div>
         <div>
           <Paginado
@@ -102,30 +99,33 @@ export default function Home() {
             allRecipes={allRecipes?.length}
             paginado={paginado}
           />
-          <button className="refreshButton"
+          <button
+            className="refreshButton"
             onClick={(e) => {
               handleClick(e);
             }}
           >
             Refresh
           </button>
-        </div>
-        {currentRecipes?.map((r) => {
-          return (
-            <div className="cardHome" key={r.id}>
-              <Link className="LinkCard" to={"/recipes/" + r.id}>
-                <Card
-                  name={r.name}
-                  image={r.image}
-                  diet={r.diets + " "}
-                  spoonacularScore={r.Spoonacularscore}
-                  healthScore={r.healthScore}
-                  id={r.id}
-                />
-              </Link>
+          <div className="CardContainer">
+            <div className="CardLine">
+              {currentRecipes?.map((r) => {
+                return (
+                  <div className="cardHome" key={r.id}>
+                    <Link className="LinkCard" to={"/recipes/" + r.id}>
+                      <Card
+                        name={r.name}
+                        image={r.image}
+                        diet={r.diets + " "}
+                        id={r.id}
+                      />
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
+          </div>
+        </div>
       </div>
     </div>
   );

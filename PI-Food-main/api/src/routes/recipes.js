@@ -23,10 +23,7 @@ const getRecipeApiInfo = async () => {
       types: e.dishTypes?.map((element) => element),
       diets: e.diets?.map((element) => element) + " ",
       summary: e.summary.replace(/<[^>]*>?/g, ""),
-      steps:
-        e.analyzedInstructions[0] && e.analyzedInstructions[0].analyzedInstructions
-          ? e.analyzedInstructions[0].analyzedInstructions.map((item) => item.analyzedInstructions).join(" \n")
-          : "",
+      steps: e.analyzedInstructions[0]?.steps?.map((e) => e.step)
     };
   });
 
@@ -49,8 +46,8 @@ const getDBinfo = async () => {
       id: recipe.id,
       name: recipe.name,
       summary: recipe.summary,
-      score: recipe.score,
-      healthScore: recipe.healthScore,
+      spoonacularScore: recipe.spoonacularScore,
+      healthyScore: recipe.healthyScore,
       image: recipe.image,
       steps: recipe.steps,
       diets: recipe.diets?.map((diet) => diet.name),
@@ -84,10 +81,7 @@ const getNameByApi = async (name) => {
       types: r.dishTypes?.map((element) => element),
       diets: r.diets?.map((element) => element),
       summary: r.summary,
-      steps:
-        r.analyzedInstructions[0] && r.analyzedInstructions[0].analyzedInstructions
-          ? r.analyzedInstructions[0].analyzedInstructions.map((item) => item.step).join(" \n")
-          : "",
+      steps: r.analyzedInstructions[0]?.steps?.map((r) => r.step)
     };
   });
   //   console.log(resName);
@@ -143,13 +137,7 @@ router.get("/:id", async (req, res) => {
       types: resultId.dishTypes?.map((element) => element),
       diets: resultId.diets?.map((element) => element),
       summary: resultId.summary.replace(/<[^>]*>?/g, ""),
-      steps:
-        resultId.analyzedInstructions[0] &&
-        resultId.analyzedInstructions[0].steps
-          ? resultId.analyzedInstructions[0].steps
-              .map((item) => item.step)
-              .join(" \n")
-          : "",
+      steps:resultId.analyzedInstructions[0]?.steps?.map((resultId) => resultId.step)
     };
     res.status(200).send(dataIdRecipe);
   } else {
@@ -165,6 +153,7 @@ router.get("/:id", async (req, res) => {
         },
       },
     });
+    res.status(200).send(searchIdDB);
   }
 });
 
@@ -173,7 +162,7 @@ router.post("/", async (req, res) => {
     name,
     summary,
     spoonacularScore,
-    healthScore,
+    healthyScore,
     steps,
     diets,
     image,
@@ -183,7 +172,7 @@ router.post("/", async (req, res) => {
     name,
     summary,
     spoonacularScore,
-    healthScore,
+    healthyScore,
     steps,
     diets,
     image,

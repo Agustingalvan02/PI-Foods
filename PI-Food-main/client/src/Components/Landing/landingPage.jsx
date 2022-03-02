@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 import "./landingPage.css";
 function landingPage() {
   return (
-    <body className="bodyBG">
+    <div className="bodyBG">
         <h1>Welcome! </h1>
         <Link to="/home">
           <button>Ingresar</button>
         </Link>
-    </body>
+    </div>
   );
 }
 export default landingPage;

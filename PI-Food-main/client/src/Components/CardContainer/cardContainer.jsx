@@ -1,7 +1,8 @@
 import React,{useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { recipeDetail } from "../../Actions/actions";
-
+import './CardContainer.css'
+import NavBar from '../NavBar/nav'
 export default function CardContainer(props){
     console.log(props)
     const dispatch= useDispatch();
@@ -19,12 +20,13 @@ export default function CardContainer(props){
     console.log(diet)
     return(
        
-        <div>
+        <div className="CardDiv">
+        <NavBar/>
          {(detailRecipe)     
          ?<div>
          <h1>{detailRecipe.name}</h1>
          <img src={detailRecipe.image} alt="img" />
-         <h3>Summary:{detailRecipe.summary}</h3>
+         <h3>Summary: {detailRecipe.summary}</h3>
          <h3>Diets:
          <ul>
              {diet?.map((d)=>
