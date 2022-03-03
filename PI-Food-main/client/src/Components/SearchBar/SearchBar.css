@@ -1,0 +1,9 @@
+.ButtonSearch{
+    background-color: black;
+  color: white;
+  padding: 7px 7px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}

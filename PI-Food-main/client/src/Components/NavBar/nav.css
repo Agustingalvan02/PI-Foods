@@ -1,4 +1,4 @@
-li{
+.liNav{
     display: flex;
   text-align: center;
   justify-content: space-between;
@@ -9,7 +9,7 @@ li{
 .navStyle{
 
 }
-ul {
+.ulNav {
     display: flex;
     text-align: center;
     justify-content: center;

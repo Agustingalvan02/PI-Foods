@@ -1,6 +1,6 @@
 import React from "react";
 import './card.css'
-export default function Card({name,image,diet,steps}) {
+export default function Card({name,image,diet}) {
     return(
         <div className="cardStyle">
             <img className="img" src={image} alt="img missing" width='350px' height='350px' />

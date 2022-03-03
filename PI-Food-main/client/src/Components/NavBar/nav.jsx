@@ -6,9 +6,9 @@ import './nav.css'
 export default function NavBar(){
     return(
         <nav className="navStyle">
-            <ul>
-            <li><Link className="linkStyle" to='/home'>Home</Link></li>
-            <li><Link className="linkStyle" to='/recipe'>Create Recipe</Link></li>
+            <ul className="ulNav">
+            <li className="liNav"><Link className="linkStyle" to='/home'>Home</Link></li>
+            <li className="liNav"><Link className="linkStyle" to='/recipe'>Create Recipe</Link></li>
             </ul>
         </nav>
     )

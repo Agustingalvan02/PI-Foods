@@ -177,7 +177,6 @@ router.post("/", async (req, res) => {
     diets,
     image,
   });
- console.log(newRecipe);
   const dbDiets = await Diet.findAll({
     where: { name: diets },
   });

@@ -4,7 +4,6 @@ import { recipeDetail } from "../../Actions/actions";
 import './CardContainer.css'
 import NavBar from '../NavBar/nav'
 export default function CardContainer(props){
-    console.log(props)
     const dispatch= useDispatch();
     useEffect(()=>{
         dispatch(recipeDetail(props.match.params.id))
@@ -26,7 +25,7 @@ export default function CardContainer(props){
          ?<div>
          <h1>{detailRecipe.name}</h1>
          <img src={detailRecipe.image} alt="img" />
-         <h3>Summary: {detailRecipe.summary}</h3>
+         <h3>Summary:<br/> {detailRecipe.summary}</h3>
          <h3>Diets:
          <ul>
              {diet?.map((d)=>
@@ -36,8 +35,8 @@ export default function CardContainer(props){
          </ul>
          </h3>
          <h3>SpoonAcularScore:{detailRecipe.spoonacularScore}</h3>
-         <h3>healthScore:{detailRecipe.healthScore}</h3>
-         <h3>Steps:{detailRecipe.steps}</h3>
+         <h3>healthScore:{detailRecipe.healthScore  ||detailRecipe.healthyScore}</h3>
+         <h3>Steps:<br/>{detailRecipe.steps}</h3>
          
          </div>:
          <p>Cargando ...</p>
